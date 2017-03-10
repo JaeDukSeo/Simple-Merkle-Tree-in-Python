@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
 	# i-1) Declare a transaction - the ground truth
 	ground_truth_Tree = Jae_MerkTree()
-	ground_truth_transaction = ['a','b','c']
+	ground_truth_transaction = ['a','b','c','d','e']
 	ground_truth_Tree.listoftransaction = ground_truth_transaction
 	ground_truth_Tree.create_tree()
 	ground_truth_past_transaction = ground_truth_Tree.Get_past_transacion()
@@ -119,7 +119,7 @@ if __name__ == "__main__":
 
 	# i-2) Declare a tampered transaction
 	tampered_Tree = Jae_MerkTree()
-	tampered_Tree_transaction = ['a','b','e']
+	tampered_Tree_transaction = ['a','b','c','d','f']
 	tampered_Tree.listoftransaction = tampered_Tree_transaction
 	tampered_Tree.create_tree()
 	tampered_Tree_past_transaction = tampered_Tree.Get_past_transacion()
