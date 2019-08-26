@@ -33,11 +33,11 @@ class Jae_MerkTree:
 				current_right = ''
 
 			# 3.5 Apply the Hash 256 function to the current values
-			current_hash = hashlib.sha256(current)
+			current_hash = hashlib.sha256(current.encode())
 
 			# 3.6 If the current right hash is not a '' <- empty string
 			if current_right != '':
-				current_right_hash = hashlib.sha256(current_right)
+				current_right_hash = hashlib.sha256(current_right.encode())
 
 			# 3.7 Add the Transaction to the dictionary 
 			past_transaction[listoftransaction[index]] = current_hash.hexdigest()
@@ -68,7 +68,7 @@ class Jae_MerkTree:
 
 	# 5. Get the root of the transaction
 	def Get_Root_leaf(self):
-		last_key = self.past_transaction.keys()[-1]
+		last_key = list(self.past_transaction.keys())[-1]
 		return self.past_transaction[last_key]
 
 # Declare the main part of the function to run
@@ -90,24 +90,24 @@ if __name__ == "__main__":
 	past_transaction = Jae_Tree.Get_past_transacion()
 
 	# f) Get the last transaction and print all 
-	print "First Example - Even number of transaction Merkel Tree"
-	print 'Final root of the tree : ',Jae_Tree.Get_Root_leaf()
+	print("First Example - Even number of transaction Merkel Tree")
+	print('Final root of the tree : ',Jae_Tree.Get_Root_leaf())
 	print(json.dumps(past_transaction, indent=4))
-	print "-" * 50 
+	print("-" * 50)
 
 	# h) Second example
-	print "Second Example - Odd number of transaction Merkel Tree"
+	print("Second Example - Odd number of transaction Merkel Tree")
 	Jae_Tree = Jae_MerkTree()
 	transaction = ['a','b','c','d','e']
 	Jae_Tree.listoftransaction = transaction
 	Jae_Tree.create_tree()
 	past_transaction = Jae_Tree.Get_past_transacion()
-	print 'Final root of the tree : ',Jae_Tree.Get_Root_leaf()
+	print('Final root of the tree : ',Jae_Tree.Get_Root_leaf())
 	print(json.dumps(past_transaction, indent=4))
-	print "-" * 50 
+	print("-" * 50)
 
 	# i) Actual Use Case
-	print "Final Example - Actuall use case of the Merkle Tree"
+	print("Final Example - Actuall use case of the Merkle Tree")
 
 	# i-1) Declare a transaction - the ground truth
 	ground_truth_Tree = Jae_MerkTree()
@@ -126,15 +126,15 @@ if __name__ == "__main__":
 	tampered_Tree_root = tampered_Tree.Get_Root_leaf()
 
 	# i-3) The three company share all of the transaction 
-	print 'Company A - my final transaction hash : ',ground_truth_root
-	print 'Company B - my final transaction hash : ',ground_truth_root
-	print 'Company C - my final transaction hash : ',tampered_Tree_root
+	print('Company A - my final transaction hash : ',ground_truth_root)
+	print('Company B - my final transaction hash : ',ground_truth_root)
+	print('Company C - my final transaction hash : ',tampered_Tree_root)
 
 	# i-4) Print out all of the past transaction
-	print "\n\nGround Truth past Transaction "
+	print("\n\nGround Truth past Transaction ")
 	print(json.dumps(ground_truth_past_transaction, indent=4))
 	
-	print "\n\nTamper Truth past Transaction "
+	print("\n\nTamper Truth past Transaction ")
 	print(json.dumps(tampered_Tree_past_transaction, indent=4))
 
 
